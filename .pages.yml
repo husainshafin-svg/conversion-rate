@@ -57,18 +57,19 @@ content:
         label: Primary category
         type: select
         options:
-          - label: Monetization
-            value: monetization
-          - label: Gacha Systems
-            value: gacha-systems
-          - label: Player Psychology
-            value: player-psychology
-          - label: Live Ops
-            value: live-ops
-          - label: Analytics
-            value: analytics
-          - label: UX Research
-            value: ux-research
+          values:
+            - label: Monetization
+              value: monetization
+            - label: Gacha Systems
+              value: gacha-systems
+            - label: Player Psychology
+              value: player-psychology
+            - label: Live Ops
+              value: live-ops
+            - label: Analytics
+              value: analytics
+            - label: UX Research
+              value: ux-research
         required: true
 
       - name: tags
