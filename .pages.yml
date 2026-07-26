@@ -1,4 +1,46 @@
 # ============================================================
+# Jekyll configuration
+# GitHub Pages builds this automatically on every push — no
+# Actions workflow needed. This is what makes Pages CMS edits
+# (which just commit Markdown files) actually show up on the
+# live site.
+#
+# IMPORTANT: if your repo is named something other than
+# "conversion-rate", update `baseurl` below to match, e.g.
+# a repo named "my-blog" needs baseurl: "/my-blog"
+# ============================================================
+title: "Conversion Rate"
+description: "A blog about gacha systems, monetization design, and player psychology."
+baseurl: "/conversion-rate"
+url: ""
+
+markdown: kramdown
+
+# Custom collection: every file Pages CMS creates under /_articles
+# becomes one entry in `site.articles`, available to loop over in
+# index.html and rendered individually through _layouts/article.html
+collections:
+  articles:
+    output: true
+    permalink: /articles/:slug/
+
+defaults:
+  - scope:
+      path: ""
+      type: articles
+    values:
+      layout: article
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+# Folders Jekyll should ignore when building
+exclude:
+  - admin
+  - README.md
+
+  # ============================================================
 # Pages CMS configuration (app.pagescms.org)
 #
 # Setup:
@@ -24,7 +66,7 @@ content:
   - name: articles
     label: Articles
     type: collection
-    path: articles
+    path: _articles
     format: yaml-frontmatter
     view:
       fields: [title, date, category, featured]
