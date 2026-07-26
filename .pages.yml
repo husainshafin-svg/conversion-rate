@@ -1,0 +1,144 @@
+# ============================================================
+# Pages CMS configuration (app.pagescms.org)
+#
+# Setup:
+# 1. Push this repo (with this file at admin/config.yml) to GitHub.
+# 2. Go to https://app.pagescms.org and connect this repository.
+# 3. Pages CMS will read this file automatically and give you a
+#    visual editor for the collections defined below.
+#
+# This config assumes each blog post lives as its own Markdown file
+# in /articles, with the fields below as front matter. If you later
+# wire index.html up to build from these files (e.g. via a static
+# site generator or a small build script), the field names here
+# match the data used in the "All Articles" section of index.html.
+# ============================================================
+
+media:
+  # Where uploaded/drag-and-dropped images are stored in the repo.
+  input: assets/images
+  # Public URL path those images are served from on GitHub Pages.
+  output: /assets/images
+
+content:
+  - name: articles
+    label: Articles
+    type: collection
+    path: articles
+    format: yaml-frontmatter
+    view:
+      fields: [title, date, category, featured]
+      primary: title
+      sort: [date]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: date
+        label: Publication date
+        type: date
+        required: true
+
+      - name: read_time
+        label: Estimated read time
+        type: string
+        description: "e.g. '7 min read'"
+        required: true
+
+      - name: excerpt
+        label: Excerpt
+        type: text
+        description: "A 2-sentence summary shown in the article list."
+        required: true
+
+      - name: category
+        label: Primary category
+        type: select
+        options:
+          - Monetization
+          - Gacha Systems
+          - Player Psychology
+          - Live Ops
+          - Analytics
+          - UX Research
+        required: true
+
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+        description: "One or more tags, e.g. Monetization, Gacha Systems."
+
+      - name: featured
+        label: Show as featured banner
+        type: boolean
+        default: false
+        description: "Only one post should be marked featured at a time."
+
+      - name: cover_image
+        label: Cover image
+        type: image
+        required: false
+
+      - name: body
+        label: Body
+        type: rich-text
+        required: true
+
+  - name: about
+    label: About Page
+    type: file
+    path: about/index.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Page title
+        type: string
+        default: "About"
+
+      - name: bio
+        label: Author bio
+        type: text
+        description: "Short bio shown in the site footer and About page."
+
+      - name: linkedin_url
+        label: LinkedIn URL
+        type: string
+
+      - name: contact_email
+        label: Contact email
+        type: string
+
+      - name: body
+        label: Extended bio / page body
+        type: rich-text
+        required: false
+
+  - name: settings
+    label: Site Settings
+    type: file
+    path: _data/settings.yml
+    fields:
+      - name: site_title
+        label: Site title
+        type: string
+        default: "Conversion Rate"
+
+      - name: tagline
+        label: Tagline
+        type: string
+        required: false
+
+      - name: nav_links
+        label: Navigation links
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Label
+            type: string
+          - name: url
+            label: URL
+            type: string
