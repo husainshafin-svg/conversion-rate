@@ -1,1 +1,9 @@
-site_title: Conversion Rate
+site_title: "Conversion Rate"
+tagline: "Notes on gacha systems, monetization design, and player psychology."
+nav_links:
+  - label: Articles
+    url: /articles/
+  - label: About
+    url: /about/
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/your-profile
