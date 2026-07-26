@@ -1,1 +1,629 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conversion Rate — Notes on game monetization &amp; player psychology</title>
+<meta name="description" content="Conversion Rate is a blog about gacha systems, monetization design, and the psychology behind why players pull.">
+
+<!-- 
+  One Google Font is loaded (Fraunces, for headlines only) and preconnected 
+  for speed. Body text uses the system font stack, so the page renders 
+  instantly with no additional network requests on repeat visits.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     DESIGN TOKENS
+     "Conversion Rate" is a data/analytics term repurposed for a 
+     gacha-and-monetization blog — so the accent color and the 
+     monospace "ticker" treatment on dates/read-time/tags are the 
+     one deliberate motif of this page. Everything else stays quiet.
+     ============================================================ */
+  :root {
+    /* Light mode palette */
+    --bg: #F6F4EF;          /* warm paper, not stark white */
+    --surface: #FFFFFF;
+    --ink: #1B1C19;         /* near-black, not pure #000 */
+    --ink-soft: #55564F;
+    --line: #DEDBD1;
+    --accent: #1F6F5C;      /* deep conversion-green, the signature color */
+    --accent-soft: #E4EFEA;
+    --radius: 3px;
+
+    --font-display: 'Fraunces', Georgia, 'Iowan Old Style', serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+    --max-width: 780px;
+  }
+
+  [data-theme="dark"] {
+    --bg: #15160F;
+    --surface: #1D1E17;
+    --ink: #ECEAE0;
+    --ink-soft: #A6A498;
+    --line: #34352A;
+    --accent: #4FCB9F;
+    --accent-soft: #1E2E26;
+  }
+
+  /* ============================================================
+     RESET / BASE
+     ============================================================ */
+  * { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  .wrap {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Visible keyboard focus for accessibility */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* ============================================================
+     HEADER / NAV
+     ============================================================ */
+  header.site-header {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 28px 24px 24px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .site-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .site-title .tick {
+    color: var(--accent);
+  }
+
+  nav.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font-size: 0.92rem;
+  }
+
+  nav.site-nav a {
+    color: var(--ink-soft);
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  nav.site-nav a:hover {
+    color: var(--ink);
+    border-color: var(--accent);
+  }
+
+  #theme-toggle {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 5px 9px;
+    cursor: pointer;
+  }
+
+  #theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ============================================================
+     FEATURED ARTICLE BANNER
+     ============================================================ */
+  .featured {
+    max-width: var(--max-width);
+    margin: 40px auto 8px;
+    padding: 0 24px;
+  }
+
+  .featured-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Signature detail: a thin ticker-style rule that "moves up and to 
+     the right", echoing a conversion-rate chart line. Purely decorative,
+     drawn once with CSS, no JS/animation cost. */
+  .featured-card::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0;
+    width: 140px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent));
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .eyebrow::before {
+    content: "▲";
+    font-size: 0.65rem;
+  }
+
+  .featured h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4vw, 2.35rem);
+    line-height: 1.18;
+    font-weight: 600;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+
+  .featured p.excerpt {
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    margin: 0 0 20px;
+    max-width: 62ch;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  .meta-row .dot { opacity: 0.5; }
+
+  .read-link {
+    display: inline-block;
+    margin-top: 22px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+  }
+
+  .read-link::after { content: " →"; }
+
+  /* ============================================================
+     TAGS
+     ============================================================ */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: var(--radius);
+    padding: 3px 8px;
+  }
+
+  /* ============================================================
+     ALL ARTICLES LIST
+     ============================================================ */
+  section.articles {
+    max-width: var(--max-width);
+    margin: 56px auto 0;
+    padding: 0 24px;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 10px;
+    margin-bottom: 6px;
+  }
+
+  .section-heading h2 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .section-heading span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  article.post-row {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  article.post-row:last-child { border-bottom: none; }
+
+  article.post-row h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  article.post-row h3 a:hover { color: var(--accent); }
+
+  article.post-row p.excerpt {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+    margin: 0 0 12px;
+  }
+
+  /* ============================================================
+     FOOTER / ABOUT THE AUTHOR
+     ============================================================ */
+  footer.site-footer {
+    margin-top: 64px;
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 40px 24px 48px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--surface);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .footer-inner h4 {
+    margin: 0 0 6px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+  }
+
+  .footer-inner p {
+    margin: 0 0 12px;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    max-width: 56ch;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .footer-links a {
+    color: var(--accent);
+    border-bottom: 1px solid transparent;
+  }
+
+  .footer-links a:hover { border-color: var(--accent); }
+
+  .copyright {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    padding: 18px 24px 32px;
+  }
+
+  /* ============================================================
+     RESPONSIVE — MOBILE
+     ============================================================ */
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+
+    .header-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 20px;
+    }
+
+    nav.site-nav { gap: 16px; font-size: 0.88rem; }
+
+    .featured-card { padding: 28px 22px; }
+
+    .featured h1 { font-size: 1.55rem; }
+
+    .footer-inner { flex-direction: column; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-title">Conversion<span class="tick">Rate</span></div>
+    <nav class="site-nav">
+      <a href="/articles/">Articles</a>
+      <a href="/about/">About</a>
+      <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a>
+      <button id="theme-toggle" type="button" aria-label="Toggle dark mode">DARK</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     FEATURED ARTICLE
+     ============================================================ -->
+<section class="featured">
+  <div class="featured-card">
+    <span class="eyebrow">Featured — latest deep-dive</span>
+    <h1><a href="/articles/pity-timer-paradox.html">The Pity Timer Paradox: How Soft Pity Quietly Raises ARPU</a></h1>
+    <p class="excerpt">
+      Soft pity is sold to players as a fairness patch, a guarantee that bad luck can't run forever.
+      In practice, it does something closer to the opposite: it reshapes spend curves so the average
+      player converts sooner, not later.
+    </p>
+    <div class="meta-row">
+      <span>July 22, 2026</span>
+      <span class="dot">•</span>
+      <span>9 min read</span>
+      <span class="dot">•</span>
+      <span>Monetization</span>
+    </div>
+    <div class="tags">
+      <span class="tag">Monetization</span>
+      <span class="tag">Gacha Systems</span>
+      <span class="tag">Player Psychology</span>
+    </div>
+    <a class="read-link" href="/articles/pity-timer-paradox.html">Read the full article</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     ALL ARTICLES
+     ============================================================ -->
+<section class="articles">
+  <div class="section-heading">
+    <h2>All Articles</h2>
+    <span>6 posts</span>
+  </div>
+
+  <article class="post-row">
+    <h3><a href="/articles/limited-banner-fomo.html">Limited Banners Aren't Scarcity — They're a Deadline</a></h3>
+    <p class="excerpt">
+      Scarcity implies something might run out. A limited banner just implies a clock, and clocks
+      convert better than shortage ever did. We break down why "rate-up" language does more work
+      than the actual odds behind it.
+    </p>
+    <div class="meta-row">
+      <span>July 14, 2026</span>
+      <span class="dot">•</span>
+      <span>7 min read</span>
+    </div>
+    <div class="tags">
+      <span class="tag">Gacha Systems</span>
+      <span class="tag">Live Ops</span>
+    </div>
+  </article>
+
+  <article class="post-row">
+    <h3><a href="/articles/currency-layering.html">Why Every Gacha Game Has Three Currencies, Not One</a></h3>
+    <p class="excerpt">
+      Hard currency, soft currency, and a third "event" currency aren't a UI accident — each one
+      exists to blur the line between a dollar and a pull. We trace the exchange rate math that
+      makes spend feel smaller than it is.
+    </p>
+    <div class="meta-row">
+      <span>July 5, 2026</span>
+      <span class="dot">•</span>
+      <span>11 min read</span>
+    </div>
+    <div class="tags">
+      <span class="tag">Monetization</span>
+      <span class="tag">UX Research</span>
+    </div>
+  </article>
+
+  <article class="post-row">
+    <h3><a href="/articles/whale-cohorts.html">Segmenting Whales: What Spend Cohorts Actually Tell You</a></h3>
+    <p class="excerpt">
+      "Whale" is a lazy label for a spectrum of behavior. Looking at cohort retention instead of
+      raw spend reveals which high-value players are loyal, and which are one bad patch away from
+      churning entirely.
+    </p>
+    <div class="meta-row">
+      <span>June 27, 2026</span>
+      <span class="dot">•</span>
+      <span>8 min read</span>
+    </div>
+    <div class="tags">
+      <span class="tag">Monetization</span>
+      <span class="tag">Analytics</span>
+    </div>
+  </article>
+
+  <article class="post-row">
+    <h3><a href="/articles/first-ten-pulls.html">The First Ten Pulls: Designing a Player's Opening Impression</a></h3>
+    <p class="excerpt">
+      Most gacha games rig the first banner in the player's favor, and most players never notice.
+      We look at onboarding pull rates across a dozen titles and what they're actually training
+      players to expect.
+    </p>
+    <div class="meta-row">
+      <span>June 18, 2026</span>
+      <span class="dot">•</span>
+      <span>6 min read</span>
+    </div>
+    <div class="tags">
+      <span class="tag">Gacha Systems</span>
+      <span class="tag">Player Psychology</span>
+    </div>
+  </article>
+
+  <article class="post-row">
+    <h3><a href="/articles/battle-pass-anchoring.html">Battle Passes Are a Price-Anchoring Trick, Not a Reward System</a></h3>
+    <p class="excerpt">
+      A $10 pass that "unlocks $60 of value" isn't generosity, it's an anchor. We compare battle
+      pass math across genres to show how the free track exists purely to make the paid track look
+      cheap.
+    </p>
+    <div class="meta-row">
+      <span>June 9, 2026</span>
+      <span class="dot">•</span>
+      <span>10 min read</span>
+    </div>
+    <div class="tags">
+      <span class="tag">Monetization</span>
+      <span class="tag">Live Ops</span>
+    </div>
+  </article>
+
+  <article class="post-row">
+    <h3><a href="/articles/dupe-systems.html">Duplicate Systems: Turning "Bad Luck" Into a Second Product</a></h3>
+    <p class="excerpt">
+      Constellations, eidolons, limit breaks — every studio has its own name for selling players
+      the same character twice. We map out how dupe systems quietly double the addressable spend
+      per unit.
+    </p>
+    <div class="meta-row">
+      <span>June 1, 2026</span>
+      <span class="dot">•</span>
+      <span>7 min read</span>
+    </div>
+    <div class="tags">
+      <span class="tag">Gacha Systems</span>
+      <span class="tag">Monetization</span>
+    </div>
+  </article>
+</section>
+
+<!-- ============================================================
+     FOOTER — ABOUT THE AUTHOR
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="avatar">S</div>
+    <div>
+      <h4>About the author</h4>
+      <p>
+        I'm Shafin, a developer who spends too much time reading gacha game patch notes and
+        thinking about why players pull. Conversion Rate is where I write up what monetization
+        design and game economy systems actually do, one mechanic at a time.
+      </p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:you@example.com">Email</a>
+        <a href="/about/">Full bio</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="copyright">© 2026 Conversion Rate. Built with plain HTML &amp; CSS.</div>
+
+<script>
+  // Minimal, dependency-free dark mode toggle. Persists via localStorage
+  // and respects the visitor's OS-level preference on first visit.
+  (function () {
+    const root = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+    const stored = localStorage.getItem('cr-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+        toggle.textContent = 'LIGHT';
+      } else {
+        root.removeAttribute('data-theme');
+        toggle.textContent = 'DARK';
+      }
+    }
+
+    applyTheme(stored || (prefersDark ? 'dark' : 'light'));
+
+    toggle.addEventListener('click', function () {
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      const next = isDark ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem('cr-theme', next);
+    });
+  })();
+</script>
+
+</body>
+</html>
