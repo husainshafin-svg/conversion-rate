@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conversion Rate — Notes on game monetization &amp; player psychology</title>
-<meta name="description" content="Conversion Rate is a blog about gacha systems, monetization design, and the psychology behind why players pull.">
+<title>Conversion Rate</title>
+<meta name="description" content="Conversion Rate — a blog about gacha systems, monetization design, and player psychology.">
 
 <!-- 
   One Google Font is loaded (Fraunces, for headlines only) and preconnected 
@@ -57,9 +56,7 @@
      ============================================================ */
   * { box-sizing: border-box; }
 
-  html {
-    -webkit-text-size-adjust: 100%;
-  }
+  html { -webkit-text-size-adjust: 100%; }
 
   body {
     margin: 0;
@@ -72,11 +69,7 @@
     transition: background 0.2s ease, color 0.2s ease;
   }
 
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
+  a { color: inherit; text-decoration: none; }
   img { max-width: 100%; display: block; }
 
   .wrap {
@@ -95,9 +88,7 @@
   /* ============================================================
      HEADER / NAV
      ============================================================ */
-  header.site-header {
-    border-bottom: 1px solid var(--line);
-  }
+  header.site-header { border-bottom: 1px solid var(--line); }
 
   .header-inner {
     max-width: var(--max-width);
@@ -117,9 +108,7 @@
     letter-spacing: -0.01em;
   }
 
-  .site-title .tick {
-    color: var(--accent);
-  }
+  .site-title .tick { color: var(--accent); }
 
   nav.site-nav {
     display: flex;
@@ -135,10 +124,7 @@
     transition: color 0.15s ease, border-color 0.15s ease;
   }
 
-  nav.site-nav a:hover {
-    color: var(--ink);
-    border-color: var(--accent);
-  }
+  nav.site-nav a:hover { color: var(--ink); border-color: var(--accent); }
 
   #theme-toggle {
     background: none;
@@ -195,10 +181,7 @@
     margin-bottom: 14px;
   }
 
-  .eyebrow::before {
-    content: "▲";
-    font-size: 0.65rem;
-  }
+  .eyebrow::before { content: "▲"; font-size: 0.65rem; }
 
   .featured h1 {
     font-family: var(--font-display);
@@ -243,12 +226,7 @@
   /* ============================================================
      TAGS
      ============================================================ */
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 16px;
-  }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 
   .tag {
     font-family: var(--font-mono);
@@ -291,11 +269,7 @@
     color: var(--ink-soft);
   }
 
-  article.post-row {
-    padding: 28px 0;
-    border-bottom: 1px solid var(--line);
-  }
-
+  article.post-row { padding: 28px 0; border-bottom: 1px solid var(--line); }
   article.post-row:last-child { border-bottom: none; }
 
   article.post-row h3 {
@@ -312,6 +286,23 @@
     color: var(--ink-soft);
     font-size: 0.96rem;
     margin: 0 0 12px;
+  }
+
+  /* Empty state, shown when there are no articles yet */
+  .empty-state {
+    padding: 48px 0;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .empty-state strong {
+    display: block;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
   }
 
   /* ============================================================
@@ -347,11 +338,7 @@
     flex-shrink: 0;
   }
 
-  .footer-inner h4 {
-    margin: 0 0 6px;
-    font-family: var(--font-display);
-    font-size: 1rem;
-  }
+  .footer-inner h4 { margin: 0 0 6px; font-family: var(--font-display); font-size: 1rem; }
 
   .footer-inner p {
     margin: 0 0 12px;
@@ -360,18 +347,8 @@
     max-width: 56ch;
   }
 
-  .footer-links {
-    display: flex;
-    gap: 16px;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-  }
-
-  .footer-links a {
-    color: var(--accent);
-    border-bottom: 1px solid transparent;
-  }
-
+  .footer-links { display: flex; gap: 16px; font-family: var(--font-mono); font-size: 0.78rem; }
+  .footer-links a { color: var(--accent); border-bottom: 1px solid transparent; }
   .footer-links a:hover { border-color: var(--accent); }
 
   .copyright {
@@ -387,19 +364,10 @@
      ============================================================ */
   @media (max-width: 640px) {
     body { font-size: 16px; }
-
-    .header-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      padding-top: 20px;
-    }
-
+    .header-inner { flex-direction: column; align-items: flex-start; padding-top: 20px; }
     nav.site-nav { gap: 16px; font-size: 0.88rem; }
-
     .featured-card { padding: 28px 22px; }
-
     .featured h1 { font-size: 1.55rem; }
-
     .footer-inner { flex-direction: column; }
   }
 
@@ -427,152 +395,76 @@
 
 <!-- ============================================================
      FEATURED ARTICLE
+     Replace the placeholder text below with your latest post once
+     you've written one. If you don't have a featured post yet, you
+     can delete this whole <section class="featured"> block.
      ============================================================ -->
 <section class="featured">
   <div class="featured-card">
     <span class="eyebrow">Featured — latest deep-dive</span>
-    <h1><a href="/articles/pity-timer-paradox.html">The Pity Timer Paradox: How Soft Pity Quietly Raises ARPU</a></h1>
+    <h1><a href="#">Your featured article title goes here</a></h1>
     <p class="excerpt">
-      Soft pity is sold to players as a fairness patch, a guarantee that bad luck can't run forever.
-      In practice, it does something closer to the opposite: it reshapes spend curves so the average
-      player converts sooner, not later.
+      A short, two-sentence excerpt of your featured article goes here. It should give readers
+      a reason to click through without giving the whole thing away.
     </p>
     <div class="meta-row">
-      <span>July 22, 2026</span>
+      <span>Month DD, YYYY</span>
       <span class="dot">•</span>
-      <span>9 min read</span>
+      <span>X min read</span>
       <span class="dot">•</span>
-      <span>Monetization</span>
+      <span>Category</span>
     </div>
     <div class="tags">
-      <span class="tag">Monetization</span>
-      <span class="tag">Gacha Systems</span>
-      <span class="tag">Player Psychology</span>
+      <span class="tag">Tag One</span>
+      <span class="tag">Tag Two</span>
     </div>
-    <a class="read-link" href="/articles/pity-timer-paradox.html">Read the full article</a>
+    <a class="read-link" href="#">Read the full article</a>
   </div>
 </section>
 
 <!-- ============================================================
      ALL ARTICLES
+     This is currently an empty state. To add a post, copy the
+     commented-out <article class="post-row"> template below, paste
+     it above the </section> tag, and fill in your own content.
      ============================================================ -->
 <section class="articles">
   <div class="section-heading">
     <h2>All Articles</h2>
-    <span>6 posts</span>
+    <span>0 posts</span>
   </div>
 
-  <article class="post-row">
-    <h3><a href="/articles/limited-banner-fomo.html">Limited Banners Aren't Scarcity — They're a Deadline</a></h3>
-    <p class="excerpt">
-      Scarcity implies something might run out. A limited banner just implies a clock, and clocks
-      convert better than shortage ever did. We break down why "rate-up" language does more work
-      than the actual odds behind it.
-    </p>
-    <div class="meta-row">
-      <span>July 14, 2026</span>
-      <span class="dot">•</span>
-      <span>7 min read</span>
-    </div>
-    <div class="tags">
-      <span class="tag">Gacha Systems</span>
-      <span class="tag">Live Ops</span>
-    </div>
-  </article>
+  <div class="empty-state">
+    <strong>No articles yet</strong>
+    Your first post will show up here.
+  </div>
+
+  <!--
+  ARTICLE TEMPLATE — copy this block for each new post and paste it
+  above this comment (and above the </section> tag), then delete the
+  .empty-state div above once you have at least one real post.
 
   <article class="post-row">
-    <h3><a href="/articles/currency-layering.html">Why Every Gacha Game Has Three Currencies, Not One</a></h3>
+    <h3><a href="#">Post title goes here</a></h3>
     <p class="excerpt">
-      Hard currency, soft currency, and a third "event" currency aren't a UI accident — each one
-      exists to blur the line between a dollar and a pull. We trace the exchange rate math that
-      makes spend feel smaller than it is.
+      A two-sentence excerpt summarizing the post.
     </p>
     <div class="meta-row">
-      <span>July 5, 2026</span>
+      <span>Month DD, YYYY</span>
       <span class="dot">•</span>
-      <span>11 min read</span>
+      <span>X min read</span>
     </div>
     <div class="tags">
-      <span class="tag">Monetization</span>
-      <span class="tag">UX Research</span>
+      <span class="tag">Tag One</span>
+      <span class="tag">Tag Two</span>
     </div>
   </article>
-
-  <article class="post-row">
-    <h3><a href="/articles/whale-cohorts.html">Segmenting Whales: What Spend Cohorts Actually Tell You</a></h3>
-    <p class="excerpt">
-      "Whale" is a lazy label for a spectrum of behavior. Looking at cohort retention instead of
-      raw spend reveals which high-value players are loyal, and which are one bad patch away from
-      churning entirely.
-    </p>
-    <div class="meta-row">
-      <span>June 27, 2026</span>
-      <span class="dot">•</span>
-      <span>8 min read</span>
-    </div>
-    <div class="tags">
-      <span class="tag">Monetization</span>
-      <span class="tag">Analytics</span>
-    </div>
-  </article>
-
-  <article class="post-row">
-    <h3><a href="/articles/first-ten-pulls.html">The First Ten Pulls: Designing a Player's Opening Impression</a></h3>
-    <p class="excerpt">
-      Most gacha games rig the first banner in the player's favor, and most players never notice.
-      We look at onboarding pull rates across a dozen titles and what they're actually training
-      players to expect.
-    </p>
-    <div class="meta-row">
-      <span>June 18, 2026</span>
-      <span class="dot">•</span>
-      <span>6 min read</span>
-    </div>
-    <div class="tags">
-      <span class="tag">Gacha Systems</span>
-      <span class="tag">Player Psychology</span>
-    </div>
-  </article>
-
-  <article class="post-row">
-    <h3><a href="/articles/battle-pass-anchoring.html">Battle Passes Are a Price-Anchoring Trick, Not a Reward System</a></h3>
-    <p class="excerpt">
-      A $10 pass that "unlocks $60 of value" isn't generosity, it's an anchor. We compare battle
-      pass math across genres to show how the free track exists purely to make the paid track look
-      cheap.
-    </p>
-    <div class="meta-row">
-      <span>June 9, 2026</span>
-      <span class="dot">•</span>
-      <span>10 min read</span>
-    </div>
-    <div class="tags">
-      <span class="tag">Monetization</span>
-      <span class="tag">Live Ops</span>
-    </div>
-  </article>
-
-  <article class="post-row">
-    <h3><a href="/articles/dupe-systems.html">Duplicate Systems: Turning "Bad Luck" Into a Second Product</a></h3>
-    <p class="excerpt">
-      Constellations, eidolons, limit breaks — every studio has its own name for selling players
-      the same character twice. We map out how dupe systems quietly double the addressable spend
-      per unit.
-    </p>
-    <div class="meta-row">
-      <span>June 1, 2026</span>
-      <span class="dot">•</span>
-      <span>7 min read</span>
-    </div>
-    <div class="tags">
-      <span class="tag">Gacha Systems</span>
-      <span class="tag">Monetization</span>
-    </div>
-  </article>
+  -->
 </section>
 
 <!-- ============================================================
      FOOTER — ABOUT THE AUTHOR
+     Replace the placeholder bio and links with your own.
      ============================================================ -->
 <footer class="site-footer">
   <div class="footer-inner">
@@ -580,9 +472,8 @@
     <div>
       <h4>About the author</h4>
       <p>
-        I'm Shafin, a developer who spends too much time reading gacha game patch notes and
-        thinking about why players pull. Conversion Rate is where I write up what monetization
-        design and game economy systems actually do, one mechanic at a time.
+        Write a short bio here — a couple of sentences about who you are and what this blog
+        covers.
       </p>
       <div class="footer-links">
         <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a>
@@ -626,4 +517,5 @@
 </script>
 
 </body>
+</html>
 </html>
