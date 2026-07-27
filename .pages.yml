@@ -76,6 +76,18 @@ content:
         list: true
         description: "One or more tags, e.g. Monetization, Gacha Systems."
 
+        - name: status
+        label: Status
+        type: select
+        options:
+          values:
+            - label: Draft (not shown on homepage or articles list)
+              value: draft
+            - label: Published
+              value: published
+        default: draft
+        required: true
+
       - name: featured
         label: Show as featured banner
         type: boolean
