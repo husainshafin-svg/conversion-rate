@@ -1,1 +1,38 @@
+{% assign all_articles = site.articles | sort: "date" | reverse %}
+<section class="articles">
+  <div class="section-heading">
+    <h2>{{ include.heading | default: "All Articles" }}</h2>
+    <span>{{ all_articles.size }} post{% unless all_articles.size == 1 %}s{% endunless %}</span>
+  </div>
 
+  {% if all_articles.size == 0 %}
+    <div class="empty-state">
+      <strong>No articles yet</strong>
+      Your first post will show up here.
+    </div>
+  {% else %}
+    {% for article in all_articles %}
+    <article class="post-row">
+      <div class="post-row-inner">
+        {% if article.cover_image %}
+        <a href="{{ article.url | relative_url }}"><img class="post-row-thumb" src="{{ article.cover_image }}" alt="{{ article.title }}" loading="lazy"></a>
+        {% endif %}
+        <div class="post-row-content">
+          <h3><a href="{{ article.url | relative_url }}">{{ article.title }}</a></h3>
+          <p class="excerpt">{{ article.excerpt }}</p>
+          <div class="meta-row">
+            <span>{{ article.date | date: "%B %-d, %Y" }}</span>
+            <span class="dot">•</span>
+            <span>{{ article.read_time }}</span>
+          </div>
+          {% if article.tags %}
+          <div class="tags">
+            {% for tag in article.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  {% endif %}
+</section>
