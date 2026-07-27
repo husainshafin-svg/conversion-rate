@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,26 +122,13 @@
     background: linear-gradient(90deg, transparent, var(--accent));
   }
 
-  .featured-cover-wrap {
+  .featured-cover {
     width: 100%;
-    max-height: 480px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
     border-radius: var(--radius);
     border: 1px solid var(--line);
-    overflow: hidden;
     margin-bottom: 24px;
-  }
-
-  .featured-cover {
-    max-width: 100%;
-    max-height: 480px;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    image-rendering: auto;
   }
 
   .post-row-inner {
@@ -154,8 +140,7 @@
   .post-row-thumb {
     width: 120px;
     height: 90px;
-    object-fit: contain;
-    background: var(--bg);
+    object-fit: cover;
     border-radius: var(--radius);
     border: 1px solid var(--line);
     flex-shrink: 0;
@@ -199,3 +184,187 @@
     gap: 14px;
     font-family: var(--font-mono);
     font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  .meta-row .dot { opacity: 0.5; }
+
+  .read-link {
+    display: inline-block;
+    margin-top: 22px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+  }
+
+  .read-link::after { content: " →"; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: var(--radius);
+    padding: 3px 8px;
+  }
+
+  section.articles { max-width: var(--max-width); margin: 56px auto 0; padding: 0 24px; }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 10px;
+    margin-bottom: 6px;
+  }
+
+  .section-heading h2 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin: 0; }
+  .section-heading span { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); }
+
+  article.post-row { padding: 28px 0; border-bottom: 1px solid var(--line); }
+  article.post-row:last-child { border-bottom: none; }
+
+  article.post-row h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  article.post-row h3 a:hover { color: var(--accent); }
+  article.post-row p.excerpt { color: var(--ink-soft); font-size: 0.96rem; margin: 0 0 12px; }
+
+  .empty-state { padding: 48px 0; text-align: center; color: var(--ink-soft); font-size: 0.95rem; }
+
+  .empty-state strong {
+    display: block;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .article-page { max-width: var(--max-width); margin: 48px auto 0; padding: 0 24px; }
+  .article-page .back-link { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 24px; display: inline-block; }
+  .article-page .back-link:hover { color: var(--accent); }
+  .article-page h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 2.6rem); line-height: 1.18; margin: 0 0 16px; }
+  .article-page .cover { border-radius: var(--radius); margin: 24px 0; border: 1px solid var(--line); }
+  .article-body { font-size: 1.05rem; margin-top: 28px; }
+  .article-body p { margin: 0 0 1.2em; }
+  .article-body h2, .article-body h3 { font-family: var(--font-display); margin: 1.6em 0 0.6em; }
+  .article-body img { border-radius: var(--radius); border: 1px solid var(--line); margin: 1.5em 0; }
+  .article-body a { color: var(--accent); border-bottom: 1px solid var(--accent); }
+
+  footer.site-footer { margin-top: 64px; border-top: 1px solid var(--line); background: var(--surface); }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 40px 24px 48px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--accent); color: var(--surface);
+    font-family: var(--font-display); font-weight: 600; font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+
+  .footer-inner h4 { margin: 0 0 6px; font-family: var(--font-display); font-size: 1rem; }
+  .footer-inner p { margin: 0 0 12px; color: var(--ink-soft); font-size: 0.92rem; max-width: 56ch; }
+  .footer-links { display: flex; gap: 16px; font-family: var(--font-mono); font-size: 0.78rem; }
+  .footer-links a { color: var(--accent); border-bottom: 1px solid transparent; }
+  .footer-links a:hover { border-color: var(--accent); }
+
+  .copyright { text-align: center; font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-soft); padding: 18px 24px 32px; }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .header-inner { flex-direction: column; align-items: flex-start; padding-top: 20px; }
+    nav.site-nav { gap: 16px; font-size: 0.88rem; }
+    .featured-card { padding: 28px 22px; }
+    .featured h1 { font-size: 1.55rem; }
+    .footer-inner { flex-direction: column; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+{% assign about = site.pages | where: "url", "/about/" | first %}
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-title">Conversion<span class="tick">Rate</span></div>
+    <nav class="site-nav">
+      <a href="{{ '/articles/' | relative_url }}">Articles</a>
+      <a href="{{ '/about/' | relative_url }}">About</a>
+      <a href="{% if about %}{{ about.linkedin_url }}{% else %}#{% endif %}" target="_blank" rel="noopener">LinkedIn</a>
+      <button id="theme-toggle" type="button" aria-label="Toggle dark mode">DARK</button>
+    </nav>
+  </div>
+</header>
+
+{{ content }}
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="avatar">{{ site.title | slice: 0, 1 }}</div>
+    <div>
+      <h4>About the author</h4>
+      <p>{{ about.bio | default: "Write a short bio here — a couple of sentences about who you are and what this blog covers." }}</p>
+      <div class="footer-links">
+        <a href="{% if about %}{{ about.linkedin_url }}{% else %}#{% endif %}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:{% if about %}{{ about.contact_email }}{% else %}you@example.com{% endif %}">Email</a>
+        <a href="{{ '/about/' | relative_url }}">Full bio</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="copyright">© {{ site.time | date: "%Y" }} {{ site.title }}. Built with Jekyll on GitHub Pages.</div>
+
+<script>
+  (function () {
+    const root = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+    const stored = localStorage.getItem('cr-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+        toggle.textContent = 'LIGHT';
+      } else {
+        root.removeAttribute('data-theme');
+        toggle.textContent = 'DARK';
+      }
+    }
+
+    applyTheme(stored || (prefersDark ? 'dark' : 'light'));
+
+    toggle.addEventListener('click', function () {
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      const next = isDark ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem('cr-theme', next);
+    });
+  })();
+</script>
+
+</body>
+</html>
