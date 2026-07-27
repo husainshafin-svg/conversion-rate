@@ -1,0 +1,29 @@
+---
+layout: default
+---
+<div class="article-page">
+  <a class="back-link" href="{{ '/' | relative_url }}">← Back to all articles</a>
+
+  <span class="eyebrow">{{ page.category | replace: "-", " " | capitalize }}</span>
+  <h1>{{ page.title }}</h1>
+
+  <div class="meta-row">
+    <span>{{ page.date | date: "%B %-d, %Y" }}</span>
+    <span class="dot">•</span>
+    <span>{{ page.read_time }}</span>
+  </div>
+
+  {% if page.tags %}
+  <div class="tags">
+    {% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+  </div>
+  {% endif %}
+
+  {% if page.cover_image %}
+  <img class="cover" src="{{ page.cover_image | relative_url }}" alt="{{ page.title }}">
+  {% endif %}
+
+  <div class="article-body">
+    {{ content }}
+  </div>
+</div>
