@@ -3,7 +3,7 @@ layout: default
 title: Home
 permalink: /
 ---
-{% assign featured_articles = site.articles | where: "featured", true %}
+{% assign featured_articles = site.articles | where: "featured", true | where: "status", "published" %}
 {% assign featured = featured_articles | sort: "date" | last %}
 
 <!-- ============================================================
