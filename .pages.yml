@@ -12,7 +12,11 @@ media:
   # Where uploaded/drag-and-dropped images are stored in the repo.
   input: assets/images
   # Public URL path those images are served from on GitHub Pages.
-  output: /assets/images
+  # IMPORTANT: this includes the site's baseurl (/conversion-rate) because
+  # GitHub Pages serves this project site from a subfolder, not the domain
+  # root. If you ever rename the repo or move to a custom domain, this must
+  # be updated to match `baseurl` in _config.yml, or images will 404.
+  output: /conversion-rate/assets/images
 
 content:
   - name: articles
