@@ -17,7 +17,7 @@ permalink: /
   <div class="featured-card">
     {% if featured %}
       {% if featured.cover_image %}
-      <img class="featured-cover" src="{{ featured.cover_image | relative_url }}" alt="{{ featured.title }}">
+      <img class="featured-cover" src="{{ featured.cover_image }}" alt="{{ featured.title }}">
       {% endif %}
       <span class="eyebrow">Featured — latest deep-dive</span>
       <h1><a href="{{ featured.url | relative_url }}">{{ featured.title }}</a></h1>
@@ -66,7 +66,7 @@ permalink: /
     <article class="post-row">
       <div class="post-row-inner">
         {% if article.cover_image %}
-        <a href="{{ article.url | relative_url }}"><img class="post-row-thumb" src="{{ article.cover_image | relative_url }}" alt="{{ article.title }}"></a>
+        <a href="{{ article.url | relative_url }}"><img class="post-row-thumb" src="{{ article.cover_image }}" alt="{{ article.title }}"></a>
         {% endif %}
         <div class="post-row-content">
           <h3><a href="{{ article.url | relative_url }}">{{ article.title }}</a></h3>
