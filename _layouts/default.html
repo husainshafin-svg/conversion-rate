@@ -123,6 +123,36 @@
     background: linear-gradient(90deg, transparent, var(--accent));
   }
 
+  .featured-cover {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    margin-bottom: 24px;
+  }
+
+  .post-row-inner {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .post-row-thumb {
+    width: 120px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+
+  .post-row-content { flex: 1; min-width: 0; }
+
+  @media (max-width: 640px) {
+    .post-row-thumb { width: 84px; height: 64px; }
+  }
+
   .eyebrow {
     display: inline-flex;
     align-items: center;
