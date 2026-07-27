@@ -3,7 +3,6 @@ layout: default
 ---
 <div class="article-page">
   <a class="back-link" href="{{ '/' | relative_url }}">← Back to all articles</a>
-  <a class="back-link" href="{{ '/' | relative_url }}">← Back to all articles</a>
   {% if page.status == "draft" %}<span class="draft-badge">DRAFT — not listed on the site yet</span>{% endif %}
 
   <span class="eyebrow">{{ page.category | replace: "-", " " | capitalize }}</span>
