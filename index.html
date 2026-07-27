@@ -3,7 +3,6 @@ layout: default
 title: Home
 permalink: /
 ---
-{% assign all_articles = site.articles | sort: "date" | reverse %}
 {% assign featured_articles = site.articles | where: "featured", true %}
 {% assign featured = featured_articles | sort: "date" | last %}
 
@@ -17,7 +16,9 @@ permalink: /
   <div class="featured-card">
     {% if featured %}
       {% if featured.cover_image %}
-      <img class="featured-cover" src="{{ featured.cover_image }}" alt="{{ featured.title }}">
+      <div class="featured-cover-wrap">
+        <img class="featured-cover" src="{{ featured.cover_image }}" alt="{{ featured.title }}">
+      </div>
       {% endif %}
       <span class="eyebrow">Featured — latest deep-dive</span>
       <h1><a href="{{ featured.url | relative_url }}">{{ featured.title }}</a></h1>
@@ -45,45 +46,6 @@ permalink: /
 
 <!-- ============================================================
      ALL ARTICLES
-     Loops over every file in /_articles, newest first. Publishing
-     a new post through Pages CMS adds a Markdown file there, and
-     it shows up here on the next automatic GitHub Pages build —
-     no manual editing of this page required.
+     Shared with /articles/ — see _includes/article-list.html
      ============================================================ -->
-<section class="articles">
-  <div class="section-heading">
-    <h2>All Articles</h2>
-    <span>{{ all_articles.size }} post{% unless all_articles.size == 1 %}s{% endunless %}</span>
-  </div>
-
-  {% if all_articles.size == 0 %}
-    <div class="empty-state">
-      <strong>No articles yet</strong>
-      Your first post will show up here.
-    </div>
-  {% else %}
-    {% for article in all_articles %}
-    <article class="post-row">
-      <div class="post-row-inner">
-        {% if article.cover_image %}
-        <a href="{{ article.url | relative_url }}"><img class="post-row-thumb" src="{{ article.cover_image }}" alt="{{ article.title }}"></a>
-        {% endif %}
-        <div class="post-row-content">
-          <h3><a href="{{ article.url | relative_url }}">{{ article.title }}</a></h3>
-          <p class="excerpt">{{ article.excerpt }}</p>
-          <div class="meta-row">
-            <span>{{ article.date | date: "%B %-d, %Y" }}</span>
-            <span class="dot">•</span>
-            <span>{{ article.read_time }}</span>
-          </div>
-          {% if article.tags %}
-          <div class="tags">
-            {% for tag in article.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
-          </div>
-          {% endif %}
-        </div>
-      </div>
-    </article>
-    {% endfor %}
-  {% endif %}
-</section>
+{% include article-list.html %}
