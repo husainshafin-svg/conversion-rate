@@ -1,4 +1,4 @@
-{% assign all_articles = site.articles | sort: "date" | reverse %}
+{% assign all_articles = site.articles | where: "status", "published" | sort: "date" | reverse %}
 <section class="articles">
   <div class="section-heading">
     <h2>{{ include.heading | default: "All Articles" }}</h2>
