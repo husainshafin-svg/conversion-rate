@@ -76,7 +76,7 @@ content:
         list: true
         description: "One or more tags, e.g. Monetization, Gacha Systems."
 
-        - name: status
+       - name: status
         label: Status
         type: select
         options:
